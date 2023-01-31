@@ -67,6 +67,7 @@ macro_rules! define_signed {
         impl $name {
             pub const MAX: Self = $name(((1 as $type) << ($bits - 1)) - 1);
             pub const MIN: Self = $name(-((1 as $type) << ($bits - 1)));
+            pub const BITS: u32 = $bits;
 
             fn mask(self) -> Self {
                 if ( self.0 & (1<<($bits-1)) ) == 0 {
