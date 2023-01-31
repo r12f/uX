@@ -43,6 +43,7 @@ macro_rules! define_unsigned {
         impl $name {
             pub const MAX: Self = $name(((1 as $type) << $bits) -1 );
             pub const MIN: Self = $name(0);
+            pub const BITS: u32 = $bits;
 
             fn mask(self) -> Self {
                 $name(self.0 & ( ((1 as $type) << $bits).overflowing_sub(1).0))
@@ -738,6 +739,21 @@ mod tests {
         assert_eq!(i3::MIN, i3(-4));
         assert_eq!(i7::MIN, i7(-64));
         assert_eq!(i9::MIN, i9(-256));
+    }
+
+    #[test]
+    fn bits_values() {
+        assert_eq!(u1::BITS, 1u32);
+        assert_eq!(u2::BITS, 2u32);
+        assert_eq!(u3::BITS, 3u32);
+        assert_eq!(u7::BITS, 7u32);
+        assert_eq!(u9::BITS, 9u32);
+
+        assert_eq!(i1::BITS, 1u32);
+        assert_eq!(i2::BITS, 2u32);
+        assert_eq!(i3::BITS, 3u32);
+        assert_eq!(i7::BITS, 7u32);
+        assert_eq!(i9::BITS, 9u32);
     }
 
     #[test]
